@@ -21,9 +21,8 @@ public class Main {
 	static Fire[] fires;
 	public static void main(String[] args) throws IOException {
 		init();
-		
-		T = findTimeWallExit();
 
+		T = findTimeWallExit();
 		if (T == -1) {
 			System.out.println(T);
 			return;
@@ -36,7 +35,7 @@ public class Main {
 					int ny = fires[j].sy + dir[fires[j].dir][0];
 					int nx = fires[j].sx + dir[fires[j].dir][1];
 				
-					if (ny < 0 || nx < 0 || ny >= N || nx >= N || map[ny][nx] == 1) {
+					if (ny < 0 || nx < 0 || ny >= N || nx >= N || map[ny][nx] == 1 || map[ny][nx] == 4) {
 						fires[j].alive = false;
 						break;
 					} 
@@ -71,7 +70,7 @@ public class Main {
 				int ny = fires[i].sy + dir[fires[i].dir][0];
 				int nx = fires[i].sx + dir[fires[i].dir][1];
 				
-				if (ny < 0 || nx < 0 || ny >= N || nx >= N || map[ny][nx] == 1) {
+				if (ny < 0 || nx < 0 || ny >= N || nx >= N || map[ny][nx] == 1 || map[ny][nx] == 4) {
 					fires[i].alive = false;
 					continue;
 				}
@@ -106,7 +105,7 @@ public class Main {
 			
 			T++;
 		}
-		
+
 		return -1;
 	}
 	static int findTimeWallExit() {
@@ -125,12 +124,20 @@ public class Main {
 				int nx = cx + d[1];
 				
 				if (ny < 0 && map[offsetY - 1][offsetX + nx - M] == 0) {
+					mapStartY = offsetY - 1;
+					mapStartX = offsetX + nx - M;
 					return -visited[cy][cx];
 				} else if (nx < 0 && map[offsetY + ny - M][offsetX - 1] == 0) {
+					mapStartY = offsetY + ny - M;
+					mapStartX = offsetX - 1;
 					return -visited[cy][cx];
 				} else if (ny >= 3*M && map[offsetY + M][offsetX + nx - M] == 0) {
+					mapStartY = offsetY + M;
+					mapStartX = offsetX + nx - M;
 					return -visited[cy][cx];
 				} else if (nx >= 3*M && map[offsetY + ny - M][offsetX + M] == 0) {
+					mapStartY = offsetY + ny - M;
+					mapStartX = offsetX + M;
 					return -visited[cy][cx];
 				}
 				
@@ -178,17 +185,6 @@ public class Main {
 				if (map[i][j] == 4) {
 					endY = i;
 					endX = j;
-				}
-				if (map[i][j] == 0) {
-					for (int d = 0; d < 4; d++) {
-						int ny = i + dir[d][0];
-						int nx = j + dir[d][1];
-						
-						if (ny >= 0 && nx >= 0 && ny < N && nx < N && map[ny][nx] == 3) {
-							mapStartY = i;
-							mapStartX = j;
-						}
-					}
 				}
 			}
 		}
