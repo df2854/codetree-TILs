@@ -399,6 +399,7 @@ public class Main {
 					int nx = cx + dir[(d + 2) % 4][1];
 					
 					if (ny < 0 || nx < 0 || ny >= N || nx >= N) continue;
+					if (sight[ny][nx] == 1) continue;
 					
 					int newnewDist = calDist(new int[] {y, x}, new Soldier(ny, nx));
 					if (newnewDist < newDist) {
