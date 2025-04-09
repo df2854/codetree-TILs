@@ -52,8 +52,8 @@ public class Main {
 		int max = 0;
 		int bestY = 0, bestX = 0, bestR = 0;
 		for (int k = 0; k < 3; k++) {
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) { // 0 : 90, 1 : 180, 2 : 270
+			for (int j = 0; j < 3; j++) {
+				for (int i = 0; i < 3; i++) { // 0 : 90, 1 : 180, 2 : 270
 					int count = rotate(i, j, k);
 					if (max < count) {
 						max = count;
@@ -136,6 +136,9 @@ public class Main {
 	}
 	private static List<int[]> bfs(int y, int x, boolean[][] visited) {
 		int num = map[y][x];
+		if (num == 0) {
+			return null;
+		}
 		List<int[]> group = new ArrayList<>();
 		Queue<int[]> que = new ArrayDeque<>();
 		que.offer(new int[] {y, x});
