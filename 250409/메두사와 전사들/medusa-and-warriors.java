@@ -28,6 +28,11 @@ public class Main {
 	}
 
 	private static void simulate() {
+		if (dist[startY][startX] == -1) {
+			System.out.println(-1);
+			return;
+		}
+		
 		int cy = startY;
 		int cx = startX;
 		while (true) {
