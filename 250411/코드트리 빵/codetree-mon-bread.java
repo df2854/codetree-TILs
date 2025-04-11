@@ -52,6 +52,7 @@ public class Main {
 		while (true) {
 			time++;
 			simulate();
+
 			if (end()) break;
 		}
 		
@@ -73,7 +74,7 @@ public class Main {
 				int nx = cx + d[1];
 				
 				if (ny < 1 || nx < 1 || ny > N || nx > N || map[ny][nx] == -1) continue;
-				if (min > dist[ny][nx]) {
+				if (visited[ny][nx] && min > dist[ny][nx]) {
 					min = dist[ny][nx];
 					y = ny;
 					x = nx;
@@ -96,10 +97,10 @@ public class Main {
 		bfs(csList[time]);
 		
 		int min = Integer.MAX_VALUE;
-		int a = 0, b = 0;
+		int a = -1, b = -1;
 		
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= N; j++) {
+		for (int i = N; i >= 1; i--) {
+			for (int j = N; j >= 1; j--) {
 				if (map[i][j] == 1) {
 					if (min > dist[i][j]) {
 						min = dist[i][j];
@@ -134,10 +135,7 @@ public class Main {
 				int nx = cx + d[1];
 				
 				if (ny < 1 || nx < 1 || ny > N || nx > N || visited[ny][nx]) continue;
-				if (map[ny][nx] == -1) {
-					dist[ny][nx] = Integer.MAX_VALUE;
-					continue;
-				}
+				if (map[ny][nx] == -1) continue;
 				
 				dist[ny][nx] = dist[cy][cx] + 1;
 				visited[ny][nx] = true;
