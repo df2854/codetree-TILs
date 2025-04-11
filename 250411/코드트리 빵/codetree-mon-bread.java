@@ -99,9 +99,9 @@ public class Main {
 		int min = Integer.MAX_VALUE;
 		int a = -1, b = -1;
 		
-		for (int i = N; i >= 1; i--) {
-			for (int j = N; j >= 1; j--) {
-				if (map[i][j] == 1) {
+		for (int i = 1; i <= N; i++) {
+			for (int j = 1; j <= N; j++) {
+				if (map[i][j] == 1 && dist[i][j] != 0) {
 					if (min > dist[i][j]) {
 						min = dist[i][j];
 						a = i;
